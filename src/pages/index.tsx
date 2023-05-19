@@ -68,7 +68,9 @@ const Home = () => {
             onProgress={(data) => handleStop(data.playedSeconds)}
             controls
             muted={true}
+            config={{ file: { attributes: { playsInline: true } } }}
           />
+
           <Typography color="white" mt={4} fontSize={20} fontWeight={700}>
             Teenie Melody Mark fucked well by stepbro while she teaches him to fuck hard{' '}
           </Typography>
