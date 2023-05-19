@@ -1,4 +1,4 @@
-import { Box, Button, Stack, styled, Typography } from '@mui/material'
+import { Box, Stack, styled, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { BsFillCameraVideoFill, BsList, BsSearch } from 'react-icons/bs'
@@ -267,7 +267,7 @@ const Header = () => {
             <ItemHeader>GAMES </ItemHeader>
             <ItemHeader className="gold_button">GOLD </ItemHeader>
           </MenuHeader>
-          <Box display={'flex'} alignItems={'center'} gap={4}>
+          {/* <Box display={'flex'} alignItems={'center'} gap={4}>
             {currentUser ? (
               <>
                 <Typography variant="h5" fontWeight={'bold'} color={'white'}>
@@ -283,7 +283,7 @@ const Header = () => {
                 <Typography color="white">Sign In</Typography>
               </Button>
             )}
-          </Box>
+          </Box> */}
         </Box>
         <Box
           bgcolor={'rgba(0,0,102,.9)'}
