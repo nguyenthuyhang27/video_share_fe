@@ -12,10 +12,10 @@ import {
 import axios from 'axios'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BiHide, BiShow } from 'react-icons/bi'
-import PopUpIcon from '../../public/assets/svg/popup-icon.svg'
+import FacebookIcon from '../../public/assets/svg/facebook.svg'
 
 const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false })
 
@@ -23,6 +23,7 @@ const Home = () => {
   const [currentUser, setCurrentUser] = useState<{ username: string; isAdmin: boolean } | null>(
     null,
   )
+  const [currentVideo, setCurrentVideo] = useState<{ url: string; title: string } | null>(null)
   const [isOpenPopup, setIsOpenPopup] = useState(false)
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
   const [isPlay, setIsPlay] = useState(true)
@@ -34,7 +35,7 @@ const Home = () => {
     formState: { errors },
   } = useForm()
   const handleStop = (time: number) => {
-    if (time > 5 && !currentUser) {
+    if (time > 10 && !currentUser) {
       setIsPlay(false)
       setIsOpenPopup(true)
     }
@@ -53,14 +54,24 @@ const Home = () => {
     setLoading(false)
   }
 
+  useEffect(() => {
+    const getInfoVideo = async () => {
+      try {
+        const res = await axios.get('https://long-ruby-earthworm-veil.cyclic.app/api/v1/videos')
+        setCurrentVideo(res.data.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getInfoVideo()
+  }, [])
+
   return (
     <Box>
       <Layout>
         <Box px={5}>
           <ReactPlayer
-            url={
-              'https://firebasestorage.googleapis.com/v0/b/videosharing-76ee0.appspot.com/o/play_720p.mp4?alt=media&token=c4dca2c8-0944-40cd-b495-afc308c6c2d4'
-            }
+            url={currentVideo?.url}
             loop={true}
             playing={isPlay}
             width={'100%'}
@@ -68,11 +79,11 @@ const Home = () => {
             onProgress={(data) => handleStop(data.playedSeconds)}
             controls
             muted={true}
-            config={{ file: { attributes: { playsInline: true } } }}
+            config={{ file: { attributes: { playsInline: true, controlsList: 'nodownload' } } }}
           />
 
           <Typography color="white" mt={4} fontSize={20} fontWeight={700}>
-            Teenie Melody Mark fucked well by stepbro while she teaches him to fuck hard{' '}
+            {currentVideo?.title}
           </Typography>
         </Box>
       </Layout>
@@ -81,10 +92,7 @@ const Home = () => {
       <Dialog open={isOpenPopup}>
         <Stack sx={{ width: { xs: '80vw', md: '25vw' } }} minWidth={'250px'} py={4}>
           <Stack justifyContent={'center'} alignItems={'center'}>
-            <Image src={PopUpIcon} alt="icon" />
-            <Typography variant="h4" mt={4}>
-              Login to view continue !
-            </Typography>
+            <Image src={FacebookIcon} alt="icon" width={250} />
           </Stack>
 
           <form onSubmit={handleSubmit(onSubmit)}>
