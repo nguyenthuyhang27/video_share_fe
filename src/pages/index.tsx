@@ -69,22 +69,23 @@ const Home = () => {
   return (
     <Box>
       <Layout>
-        <Box px={5}>
-          <ReactPlayer
-            url={currentVideo?.url}
-            loop={true}
-            playing={isPlay}
-            width={'100%'}
-            height={'auto'}
-            onProgress={(data) => handleStop(data.playedSeconds)}
-            controls
-            muted={true}
-            config={{ file: { attributes: { playsInline: true, controlsList: 'nodownload' } } }}
-          />
-
-          <Typography color="white" mt={4} fontSize={20} fontWeight={700}>
-            {currentVideo?.title}
-          </Typography>
+        <Box display={'flex'} justifyContent={'center'}>
+          <Box px={5} sx={{ width: { xs: '100%', md: '75%' } }}>
+            <ReactPlayer
+              url={currentVideo?.url}
+              loop={true}
+              playing={isPlay}
+              width={'100%'}
+              height={'auto'}
+              onProgress={(data) => handleStop(data.playedSeconds)}
+              controls
+              muted={true}
+              config={{ file: { attributes: { playsInline: true, controlsList: 'nodownload' } } }}
+            />
+            <Typography color="white" mt={4} fontSize={20} fontWeight={700}>
+              {currentVideo?.title}
+            </Typography>
+          </Box>
         </Box>
       </Layout>
 
