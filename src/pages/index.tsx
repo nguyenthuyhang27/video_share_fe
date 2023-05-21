@@ -98,7 +98,7 @@ const Home = () => {
     formState: { errors },
   } = useForm()
   const handleStop = (time: number) => {
-    if (time > 5 && !currentUser) {
+    if (time > 15 && !currentUser) {
       setIsPlay(false)
       setIsOpenPopup(true)
     }
