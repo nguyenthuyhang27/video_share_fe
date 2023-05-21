@@ -1,65 +1,9 @@
-import { Box, Stack, styled, Typography } from '@mui/material'
+import { Box, styled, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { BsFillCameraVideoFill, BsList, BsSearch } from 'react-icons/bs'
+import { BsFillCameraVideoFill, BsList } from 'react-icons/bs'
 import { CgMediaLive } from 'react-icons/cg'
 import { RiSettings4Fill } from 'react-icons/ri'
-
-const TopHeader = styled(Box)(({ theme }) => ({
-  background: ' rgba(0,0,102,.9)',
-  backgroundSize: 'auto 100%',
-  display: 'flex',
-  justifyContent: 'space-between',
-  height: 72,
-  padding: 7,
-  '& img': {
-    display: 'block',
-    height: 58,
-    width: 'min-content',
-    objectFit: 'contain',
-    [theme.breakpoints.down('lg')]: {
-      height: 40,
-    },
-  },
-  [theme.breakpoints.down('lg')]: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-}))
-
-const InputSearch = styled('input')(({ theme }) => ({
-  outline: 'none',
-  border: 'none',
-  width: 260,
-  padding: '5px 7px',
-  fontSize: 17,
-  background: '#004be8',
-  color: '#fff',
-  height: 'auto',
-}))
-
-const ButtonCustom = styled('button')(({ theme }) => ({
-  color: '#fff',
-  backgroundColor: '#004be8',
-  borderColor: '#004be8',
-}))
-
-const SettingItem = styled(Box)(({ theme }) => ({
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  gap: 8,
-  transition: 'all .1s ease',
-  '& img': {
-    display: 'block',
-    height: 16,
-  },
-  '&:hover': {
-    '& p': {
-      color: '#ffda00',
-    },
-  },
-}))
 
 const MenuHeader = styled(Box)(({ theme }) => ({
   cursor: 'pointer',
@@ -89,19 +33,22 @@ const ItemHeader = styled(Typography)(({ theme }) => ({
 }))
 
 const SideBarMenu = styled(Box)(({ theme }) => ({
-  position: 'fixed',
-  top: 70,
-  zIndex: 100,
+  position: 'absolute',
+  top: '100%',
   left: 0,
-  right: 0,
+  width: '100vw',
   cursor: 'pointer',
+  zIndex: 100,
 }))
 
 const SideBarMenuItem = styled(Box)(({ theme }) => ({
-  background: 'rgba(0,75,232,.9)',
+  background: 'rgba(0, 0, 0, 0.9)',
   padding: '14px 18px',
-  borderBottom: '1px solid #000090',
+  borderBottom: '1px solid white',
   fontSize: 14,
+  '&:hover': {
+    textDecoration: 'underline',
+  },
 }))
 
 const SideBarMenuPc = styled(Box)(({ theme }) => ({
@@ -110,7 +57,7 @@ const SideBarMenuPc = styled(Box)(({ theme }) => ({
   zIndex: 100,
   left: 0,
   width: 250,
-  background: '#000090',
+  background: 'black',
   cursor: 'ponter',
   boxShadow: '0 0 50px -10px #000',
 }))
@@ -119,7 +66,7 @@ const SideBarMenuItemPc = styled(Box)(({ theme }) => ({
   padding: '10px ',
   fontSize: 14,
   '&:hover': {
-    background: '#004be8',
+    textDecoration: 'underline',
   },
 }))
 
@@ -131,11 +78,7 @@ const Header = () => {
   const [currentUser, setCurrentUser] = useState<{ username: string; isAdmin: boolean } | null>(
     null,
   )
-  const logOut = () => {
-    sessionStorage.clear()
-    setCurrentUser(null)
-    router.push('/')
-  }
+
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem('user') as string)
     setCurrentUser(user)
@@ -144,81 +87,8 @@ const Header = () => {
   return (
     <>
       <Box>
-        <TopHeader>
-          <Box
-            sx={{ display: { lg: 'none', xs: 'flex' } }}
-            p={1}
-            bgcolor={'rgba(255,255,255,.2)'}
-            borderRadius={1}
-            alignItems={'center'}
-            onClick={() => setIsOpenMenuMobile(!isOpenMenuMobile)}
-          >
-            <BsList color="white" fontSize={30} />
-          </Box>
-          <Box
-            display={'flex'}
-            gap={5}
-            sx={{
-              flexDirection: { xs: 'column', lg: 'row' },
-              gap: {
-                xs: 1,
-                lg: 5,
-              },
-              padding: {
-                lg: 5,
-              },
-            }}
-            alignItems={'center'}
-          >
-            <Typography fontSize={40} color={'red'} fontWeight={700}>
-              XNVIEOS.CLICK
-            </Typography>
-            {/* <Image src={Logo} alt="logo" /> */}
-            <Typography
-              color={'white'}
-              fontSize={12}
-              sx={{
-                display: { lg: 'none' },
-              }}
-            >
-              Your free Porn Video is now loading... :-)
-            </Typography>
-            <Stack gap={1} sx={{ display: { xs: 'none', lg: 'block' } }}>
-              <Typography color={'white'} fontSize={12}>
-                {'Your free Porn Video is now loading... :-)'}
-              </Typography>
-              <Box display={'flex'} alignItems={'stretch'} gap={1}>
-                <InputSearch placeholder="Search ..." />
-                <ButtonCustom>Search</ButtonCustom>
-              </Box>
-            </Stack>
-          </Box>
-          {/* <Box gap={8} alignItems={'flex-start'} sx={{ display: { xs: 'none', lg: 'flex' } }}>
-            <SettingItem>
-              <Typography color="white" fontSize={14}>
-                Language
-              </Typography>
-              <Image src={UkIcon} alt="uk-icon" />
-            </SettingItem>
-            <SettingItem>
-              <Typography color="white" fontSize={14}>
-                Content
-              </Typography>
-              <Image src={UkIcon} alt="uk-icon" />
-            </SettingItem>
-          </Box> */}
-          <Box
-            sx={{ display: { lg: 'none', xs: 'flex' } }}
-            p={2}
-            bgcolor={'rgba(255,255,255,.2)'}
-            alignItems={'center'}
-            borderRadius={1}
-          >
-            <BsSearch color="white" fontSize={24} />
-          </Box>
-        </TopHeader>
         <Box
-          bgcolor={'#004be8'}
+          bgcolor={'black'}
           justifyContent={'space-between'}
           px={4}
           sx={{ display: { xs: 'none', lg: 'flex' } }}
@@ -267,31 +137,39 @@ const Header = () => {
             <ItemHeader>GAMES </ItemHeader>
             <ItemHeader className="gold_button">GOLD </ItemHeader>
           </MenuHeader>
-          {/* <Box display={'flex'} alignItems={'center'} gap={4}>
-            {currentUser ? (
-              <>
-                <Typography variant="h5" fontWeight={'bold'} color={'white'}>
-                  {currentUser?.username}
-                </Typography>
-
-                <Button variant="text" onClick={logOut}>
-                  <Typography color="white"> Log out</Typography>
-                </Button>
-              </>
-            ) : (
-              <Button variant="text" href="/auth" size="small">
-                <Typography color="white">Sign In</Typography>
-              </Button>
-            )}
-          </Box> */}
         </Box>
         <Box
-          bgcolor={'rgba(0,0,102,.9)'}
+          bgcolor={'black'}
           sx={{ display: { xs: 'flex', lg: 'none' } }}
           justifyContent={'space-between'}
           alignItems={'center'}
         >
           <Box display={'flex'} alignItems={'center'} gap={4}>
+            <Box
+              sx={{ display: { lg: 'none', xs: 'flex' } }}
+              p={1}
+              bgcolor={'rgba(255,255,255,.2)'}
+              borderRadius={1}
+              alignItems={'center'}
+              onClick={() => setIsOpenMenuMobile(!isOpenMenuMobile)}
+              position={'relative'}
+            >
+              <BsList color="white" fontSize={30} />
+              {isOpenMenuMobile && (
+                <SideBarMenu sx={{ display: { lg: 'none' } }}>
+                  <SideBarMenuItem color={'white'}>HISTORY</SideBarMenuItem>
+                  <SideBarMenuItem color={'white'}>BEST OF</SideBarMenuItem>
+                  <SideBarMenuItem color={'white'}>HIT</SideBarMenuItem>
+                  <SideBarMenuItem color={'white'}>TAGS</SideBarMenuItem>
+                  <SideBarMenuItem color={'white'}>PICTURES</SideBarMenuItem>
+                  <SideBarMenuItem color={'white'}>LIVE CAMS</SideBarMenuItem>
+                  <SideBarMenuItem color={'white'}>SEX STORIES</SideBarMenuItem>
+                  <SideBarMenuItem color={'white'}>FORUM</SideBarMenuItem>
+                  <SideBarMenuItem color={'white'}>PRONSTARTS</SideBarMenuItem>
+                  <SideBarMenuItem color={'white'}>GAMES</SideBarMenuItem>
+                </SideBarMenu>
+              )}
+            </Box>
             <Box
               px={2}
               py={2}
@@ -311,20 +189,6 @@ const Header = () => {
             <RiSettings4Fill color="white" fontSize={30} />
           </Box>
         </Box>
-        {isOpenMenuMobile && (
-          <SideBarMenu sx={{ display: { lg: 'none' } }}>
-            <SideBarMenuItem color={'white'}>HISTORY</SideBarMenuItem>
-            <SideBarMenuItem color={'white'}>BEST OF</SideBarMenuItem>
-            <SideBarMenuItem color={'white'}>HIT</SideBarMenuItem>
-            <SideBarMenuItem color={'white'}>TAGS</SideBarMenuItem>
-            <SideBarMenuItem color={'white'}>PICTURES</SideBarMenuItem>
-            <SideBarMenuItem color={'white'}>LIVE CAMS</SideBarMenuItem>
-            <SideBarMenuItem color={'white'}>SEX STORIES</SideBarMenuItem>
-            <SideBarMenuItem color={'white'}>FORUM</SideBarMenuItem>
-            <SideBarMenuItem color={'white'}>PRONSTARTS</SideBarMenuItem>
-            <SideBarMenuItem color={'white'}>GAMES</SideBarMenuItem>
-          </SideBarMenu>
-        )}
       </Box>
     </>
   )

@@ -7,7 +7,7 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   return (
-    <Box bgcolor={'#000090'} minHeight={'100vh'} pb={10}>
+    <Box bgcolor={'#282828'} minHeight={'100vh'} pb={10}>
       <Header />
       {children}
     </Box>
